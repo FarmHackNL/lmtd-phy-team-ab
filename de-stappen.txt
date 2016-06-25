@@ -1,0 +1,34 @@
+1. Inlezen shp-bestand met alle percelen
+2. Selecteren van het perceel wat je wilt met het 'objecten selecteren' knopje
+3. Laag -> Opslaan als... naam: 'perceel.shp'
+ - aanvinken 'alleen geselecteerde objecten opslaan'
+ - stelsel RD-NEW (in meters)
+ opslaan als ERSI-shape gegevens
+4. Inlezen sateliet-rasterkaart met naam 'sateliet-rasterkaart'
+5. Raster -> Rasterberekening -> sateliet-rasterkaart@1/255
+  geef resultaatlaag de naam 'ndvi-rasterkaart'
+6. ndvi omrekenen naar dosering, net als stap 5, opslaan als 'dosering-rasterkaart'
+7. selecteer perceel.shp
+8. Vector -> onderzoeksgereedschap -> Vectorgrid
+ - extend opnieuw aanmaken obv laag
+ - Gris als polygonen uitvoeren aanvinken
+ - x en y: kies schaal in meter (bijvoorbeeld 10)
+ - Uitvoerbestand naam: 'perceel-raster'
+9. Vector -> Geoprocessing-gereedschap -> clip
+ - invoerlaag: perceel.shp
+ - clip-laag: 'perceel-raster'
+ - uitvoerbestand: 'perceel-10x10'
+10. Kies bij laag 'perceel-10x10' voor opslaan als
+ - Stelsel ESPSG:32631
+ - naam: 'perceel-10x10-WGS84'
+11. Raster -> Gebiedsstatistieken
+ - Rasterlaag: 'ndvi-rasterkaart'
+ - Polygoonlaag: 'perceel-10x10-WGS84'
+ - voorvoegsel: ''
+ - Waarde: gemiddelde
+12. perceel-10x10-WGS84 -> Eigenschappen -> Stijl
+ - Gradueel
+ - kolom: mean
+ - kleurverloop RYG
+ - Gelijke interval
+ - 10 klassen
